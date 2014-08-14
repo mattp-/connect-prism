@@ -350,11 +350,13 @@ describe('Prism', function() {
 
       var pathToResponse = utils.getMockPath(proxy, recordRequest);
       if (fs.existsSync(pathToResponse)) {
+        console.log(pathToResponse);
         fs.unlinkSync(pathToResponse);
       }
 
       var request = http.request({
         host: 'localhost',
+        method: 'POST',
         path: '/mockRecordTest/noMockExists',
         port: 9000
       }, function(res) {
@@ -371,6 +373,7 @@ describe('Prism', function() {
           });
         });
       });
+      request.write("some request body\n");
       request.end();
     });
   });
